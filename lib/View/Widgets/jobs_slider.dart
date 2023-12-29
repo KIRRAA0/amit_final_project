@@ -86,7 +86,7 @@ Widget buildCarouselSlider(List<JobModel> jobs) {
                       StyledContainer(
                         text: job.jobTimeType,
                       ),
-                      const SizedBox(width: 4.0),
+                      const SizedBox(width: 5.0),
                       StyledContainer(
                         text: job.jobType,
                       ),
