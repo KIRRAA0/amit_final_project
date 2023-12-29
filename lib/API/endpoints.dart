@@ -1,0 +1,10 @@
+class ApiEndpoints {
+  static const String baseUrl = 'https://project2.amit-learning.com/api';
+  static const String loginEndpoint = '/auth/login';
+  static const String registerEndpoint = '/auth/register';
+  static const String updateEndpoint = '/auth/user/update';
+  static const String otpEndpoint = '/auth/otp';
+  static const String profileEndpoint = '/auth/profile';
+  static const String jobsEndpoint = '/jobs';
+  //static const String postsEndpoint = '/posts';
+}
