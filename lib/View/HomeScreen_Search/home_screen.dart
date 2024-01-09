@@ -1,3 +1,4 @@
+import 'package:amit_final_project/View/HomeScreen_Search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,15 +11,26 @@ import '../Widgets/userinfo row.dart';
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key) {}
 
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final RegistrationController controller = Get.find<RegistrationController>();
-
+  late BuildContext? _searchContext;
   final ApiData jobService = ApiData();
+  TextEditingController searchController = TextEditingController();
+  late Future<List<JobModel>> _jobsFuture = _fetchJobs();
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeJobsFuture();
+  }
+
+  Future<void> _initializeJobsFuture() async {
+    _jobsFuture = _fetchJobs();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +43,48 @@ class _HomeScreenState extends State<HomeScreen> {
               UserInfoWithNotification(
                 usernameFuture: getUsernameFromSharedPreferences(),
               ),
+              const SizedBox(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: SizedBox(
+                  height: 55,
+                  child: TextFormField(
+                    onTapOutside: (event) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    controller: searchController,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Search jobs',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      // Update the suggestions or search results as the user types
+                    },
+                    onTap: () async {
+                      // Store the BuildContext before the async operation
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      _searchContext = context;
+                      final jobsData = await _jobsFuture;
+                      showSearch(
+                        context: _searchContext!,
+                        delegate: JobSearchDelegate(jobsData),
+                      );
+                    },
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 25,
+              ),
               FutureBuilder<List<JobModel>>(
-                future: _fetchJobs(),
+                future: _jobsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
@@ -45,8 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return buildCarouselSlider(snapshot.data!);
                   }
                 },
-              ),
-              ElevatedButton(
+              ),              ElevatedButton(
                 onPressed: () {
                   printSavedToken();
                 },
@@ -71,11 +122,13 @@ class _HomeScreenState extends State<HomeScreen> {
     print('Retrieved username: $retrievedUsername');
     return retrievedUsername;
   }
+
   Future<List<JobModel>> _fetchJobs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedToken = prefs.getString('user_token');
     return jobService.fetchJobs(savedToken!);
   }
+
   Future<void> printSavedToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -87,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
       print('No token saved.');
     }
   }
+
   Future<void> printSavedName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

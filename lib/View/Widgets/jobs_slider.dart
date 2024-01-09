@@ -67,6 +67,9 @@ class CarouselItem extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,38 +100,44 @@ class CarouselItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.bookmark_outlined,
+                  Icon(
+                    Icons.bookmark_outline,
                     size: 40,
-                    color: Colors.white,
+                    color: Colors.white.withOpacity(0.7),
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Wrap(
                 runSpacing: 6.5,
                 spacing: 6.5,
                 children: [
-                  Category9ItemWidget(data: job.jobTimeType,),
-                  Category9ItemWidget(data: job.jobLevel,),
-                  Category9ItemWidget(data: job.compName,),
+                  Category9ItemWidget(
+                    data: job.jobTimeType,
+                  ),
+                  Category9ItemWidget(
+                    data: job.jobLevel,
+                  ),
+                  Category9ItemWidget(
+                    data: job.compName,
+                  ),
                 ],
               ),
-
+              const SizedBox(height: 10),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 4, bottom: 3),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: RichText(
                       text: const TextSpan(
                         children: [
                           TextSpan(
-                            text: "12K-15K",
-                          ),
+                              text: "12K-15K", style: TextStyle(fontSize: 18)),
                           TextSpan(
-                            text: "/Month",
-                          ),
+                              text: "/Month", style: TextStyle(fontSize: 10)),
                         ],
                       ),
                       textAlign: TextAlign.left,
@@ -192,7 +201,7 @@ class Category9ItemWidget extends StatelessWidget {
         vertical: 7,
       ),
       decoration: BoxDecoration(
-        color: Colors.transparent.withOpacity(0.14),
+        color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Text(

@@ -3,14 +3,12 @@ import 'package:amit_final_project/View/Forget_password/reset_password.dart';
 import 'package:amit_final_project/View/HomeScreen_Search/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Controller/login_controller.dart';
 import '../Widgets/checkbox.dart';
 import '../Widgets/custom_button.dart';
 import '../Widgets/custom_divider.dart';
 import '../Widgets/custom_outlined_button.dart';
 import '../Widgets/custom_textfiled.dart';
 import 'create_account.dart';
-import 'intersts_screen.dart';
 
 class LoginPage extends GetView<LoginController> {
   LoginPage({Key? key});
@@ -68,7 +66,7 @@ class LoginPage extends GetView<LoginController> {
                   labelText: 'Email',
                   hintText: 'Please enter Your Email',
                   controller: controller.emailController,
-                  icon: Icons.person,
+                  icon: Icons.person_outline,
                   obscureText: false,
                 ),
                 const SizedBox(
@@ -78,7 +76,7 @@ class LoginPage extends GetView<LoginController> {
                   labelText: 'Password',
                   hintText: 'Please enter password',
                   controller: controller.passwordController,
-                  icon: Icons.lock,
+                  icon: Icons.lock_outline,
                   obscureText: true,
                 ),
                 const SizedBox(
