@@ -41,126 +41,129 @@ class CarouselItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-      decoration: BoxDecoration(
-        color: const Color(0xff091a7a),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: ClipOval(
-                      child: Image.network(
-                        job.image,
-                        fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+        decoration: BoxDecoration(
+          color: const Color(0xff091a7a),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: ClipOval(
+                        child: Image.network(
+                          job.image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          job.name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.18,
-                          ),
-                        ),
-                        const SizedBox(height: 4.0),
-                        Text(
-                          'Zoom • ${job.jobType}',
-                          style: const TextStyle(
-                            color: Color(0xFF9CA3AF),
-                            fontSize: 12,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w400,
-                            height: 0.12,
-                            letterSpacing: 0.12,
-                          ),
-                        ),
-                        const SizedBox(height: 18.0),
-                      ],
+                    const SizedBox(
+                      width: 10,
                     ),
-                  ),
-                  Icon(
-                    Icons.bookmark_outline,
-                    size: 40,
-                    color: Colors.white.withOpacity(0.7),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Wrap(
-                runSpacing: 6.5,
-                spacing: 6.5,
-                children: [
-                  Category9ItemWidget(
-                    data: job.jobTimeType,
-                  ),
-                  Category9ItemWidget(
-                    data: job.jobLevel,
-                  ),
-                  Category9ItemWidget(
-                    data: job.compName,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: RichText(
-                      text: const TextSpan(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextSpan(
-                              text: "12K-15K", style: TextStyle(fontSize: 18)),
-                          TextSpan(
-                              text: "/Month", style: TextStyle(fontSize: 10)),
+                          Text(
+                            job.name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'SF Pro Display',
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.18,
+                            ),
+                          ),
+                          const SizedBox(height: 4.0),
+                          Text(
+                            'Zoom • ${job.jobType}',
+                            style: const TextStyle(
+                              color: Color(0xFF9CA3AF),
+                              fontSize: 12,
+                              fontFamily: 'SF Pro Display',
+                              fontWeight: FontWeight.w400,
+                              height: 0.12,
+                              letterSpacing: 0.12,
+                            ),
+                          ),
+                          const SizedBox(height: 18.0),
                         ],
                       ),
-                      textAlign: TextAlign.left,
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add your logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
+                    Icon(
+                      Icons.bookmark_outline,
+                      size: 40,
+                      color: Colors.white.withOpacity(0.7),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  runSpacing: 6.5,
+                  spacing: 6.5,
+                  children: [
+                    Category9ItemWidget(
+                      data: job.jobTimeType,
+                    ),
+                    Category9ItemWidget(
+                      data: job.jobLevel,
+                    ),
+                    Category9ItemWidget(
+                      data: job.compName,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                                text: "12K-15K", style: TextStyle(fontSize: 18)),
+                            TextSpan(
+                                text: "/Month", style: TextStyle(fontSize: 10)),
+                          ],
+                        ),
+                        textAlign: TextAlign.left,
                       ),
                     ),
-                    child: const Text(
-                      "Apply now",
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your logic here
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue[700],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                      ),
+                      child: const Text(
+                        "Apply now",
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -171,9 +174,9 @@ class CarouselItem extends StatelessWidget {
 Widget buildCarouselSlider(List<JobModel> jobs) {
   return CarouselSlider(
     options: CarouselOptions(
-      height: 175,
+      height: 180,
       enlargeCenterPage: true,
-      viewportFraction: 0.8,
+      viewportFraction: 1.0, // Set viewportFraction to 1.0
     ),
     items: jobs.map((job) {
       return Builder(
@@ -184,6 +187,7 @@ Widget buildCarouselSlider(List<JobModel> jobs) {
     }).toList(),
   );
 }
+
 
 class Category9ItemWidget extends StatelessWidget {
   final String data;

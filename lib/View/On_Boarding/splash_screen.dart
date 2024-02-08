@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../HomeScreen_Search/home_screen.dart';
 import '../Login_SignUp/login_screen.dart';
 import 'intro_screen.dart';
 
@@ -26,12 +27,17 @@ class _SplashScreenState extends State<SplashScreen>
   void _checkIntroStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool hasViewedIntro = prefs.getBool('introSeen') ?? false;
-    if (hasViewedIntro) {
-      Get.off(()=> LoginPage());
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Get.off(() => HomeScreen());
+    } else if (hasViewedIntro) {
+      Get.off(() => LoginPage());
     } else {
-      Get.off(()=> const IntroductionScreenExample());
+      Get.off(() => const IntroductionScreenExample());
     }
   }
+
 
   @override
   void dispose() {

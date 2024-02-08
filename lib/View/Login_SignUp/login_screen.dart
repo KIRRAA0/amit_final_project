@@ -3,6 +3,7 @@ import 'package:amit_final_project/View/Forget_password/reset_password.dart';
 import 'package:amit_final_project/View/HomeScreen_Search/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/checkbox.dart';
 import '../Widgets/custom_button.dart';
 import '../Widgets/custom_divider.dart';
@@ -108,7 +109,7 @@ class LoginPage extends GetView<LoginController> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Get.to(() => CreateAccountPage());
+                        Get.to(() => const CreateAccountPage());
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -130,16 +131,21 @@ class LoginPage extends GetView<LoginController> {
                   return CustomButton(
                     onPressed: controller.isButtonEnabled.value
                         ? () async {
-                            try {
-                              await controller.loginUser(
-                                email: controller.emailController.text,
-                                password: controller.passwordController.text,
-                              );
-                              Get.to(() => HomeScreen());
-                            } catch (e) {
-                              print('Login failed: $e');
-                            }
-                          }
+                      try {
+                        await controller.loginUser(
+                          email: controller.emailController.text,
+                          password: controller.passwordController.text,
+                        );
+                        // Set the isLoggedIn flag to true
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('isLoggedIn', true);
+                        Get.off(() => HomeScreen());
+                      } catch (e) {
+                        print('Login failed: $e');
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('isLoggedIn', false);
+                      }
+                    }
                         : null,
                     text: 'Login',
                     isButtonEnabled: controller.isButtonEnabled.value,

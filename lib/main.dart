@@ -1,5 +1,4 @@
 import 'package:amit_final_project/Controller/login_controller.dart';
-import 'package:amit_final_project/View/Login_SignUp/prefefred_location.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

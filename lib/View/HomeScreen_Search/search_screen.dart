@@ -1,88 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../Controller/job_search_controller.dart';
 import '../../Model/jobs_model.dart';
 
-class JobSearchDelegate extends SearchDelegate<List<JobModel>> {
-  late final List<JobModel> jobs;
+class JobSearchScreen extends StatelessWidget {
+  final JobSearchController controller = Get.put(JobSearchController()); // Initialize your controller
 
-  JobSearchDelegate(this.jobs);
+  JobSearchScreen({Key? key, required List<JobModel> jobsData}) : super(key: key) {
+    controller.jobsList.assignAll(jobsData); // Assign jobs data to controller
+    controller.filterJobs(''); // Initialize filtered jobs
+  }
 
   @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Get.back(),
+                  ),
+                  Expanded(
+                    child: Hero(
+                      tag: 'searchField',
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: TextFormField(
+                          autofocus: true,
+                          decoration: const InputDecoration(
+                            labelText: 'Search jobs',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35)),
+                            ),
+                          ),
+                          onChanged: (value) => controller.filterJobs(value),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Obx(() => ListView.builder(
+                itemCount: controller.filteredJobs.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(controller.filteredJobs[index].name),
+                  );
+                },
+              )),
+            ),
+          ],
+        ),
       ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        if (Navigator.canPop(context)) {
-          close(context, []);
-          FocusManager.instance.primaryFocus?.unfocus();
-        } else {
-          FocusManager.instance.primaryFocus?.unfocus();
-          Navigator.of(context).pop();
-        }
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    final filteredJobs = jobs
-        .where((job) => job.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-
-    return buildSearchResults(filteredJobs);
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final filteredJobs = jobs
-        .where((job) => job.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-
-    return buildSearchResults(filteredJobs);
-  }
-
-  Widget buildSearchResults(List<JobModel> searchResults) {
-    final suggestedJobs = jobs
-        .where((job) => job.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Suggested Jobs',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          buildListView(suggestedJobs),
-          const SizedBox(height: 16),
-          const Text('Popular Jobs',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          buildListView(suggestedJobs),
-        ],
-      ),
-    );
-  }
-
-  Widget buildListView(List<JobModel> jobsList) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: jobsList.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(jobsList[index].name),
-          trailing: const Icon(Icons.remove_circle_outline,color: Colors.red,),
-        );
-      },
     );
   }
 }
