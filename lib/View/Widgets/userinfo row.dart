@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class UserInfoWithNotification extends StatelessWidget {
   final Future<String?> usernameFuture;
@@ -16,7 +17,7 @@ class UserInfoWithNotification extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.hasError || snapshot.data == null) {
-          return Text('Error fetching username');
+          return const Text('Error fetching username');
         } else {
           String username = snapshot.data!;
           return _buildUserInfo(username);
@@ -74,7 +75,7 @@ class NotificationIconButton extends StatelessWidget {
         ),
       ),
       child: IconButton(
-        icon: Icon(Icons.notifications_outlined),
+        icon: Icon(Iconsax.notification),
         onPressed: () {
           // Add your notification handling logic here
         },

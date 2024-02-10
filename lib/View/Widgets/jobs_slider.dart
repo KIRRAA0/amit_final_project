@@ -53,6 +53,7 @@ class CarouselItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: Column(
               children: [
                 Row(
@@ -137,7 +138,7 @@ class CarouselItem extends StatelessWidget {
                         text: const TextSpan(
                           children: [
                             TextSpan(
-                                text: "12K-15K", style: TextStyle(fontSize: 18)),
+                                text: "\$12K-15K", style: TextStyle(fontSize: 18)),
                             TextSpan(
                                 text: "/Month", style: TextStyle(fontSize: 10)),
                           ],
@@ -176,7 +177,7 @@ Widget buildCarouselSlider(List<JobModel> jobs) {
     options: CarouselOptions(
       height: 180,
       enlargeCenterPage: true,
-      viewportFraction: 1.0, // Set viewportFraction to 1.0
+      viewportFraction: 1.0,
     ),
     items: jobs.map((job) {
       return Builder(

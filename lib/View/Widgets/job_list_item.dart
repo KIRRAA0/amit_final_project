@@ -66,12 +66,23 @@ class JobListItem extends StatelessWidget {
                   _buildTagContainer('Senior', Colors.blue[100]!),
                 ],
               ),
-              Text(
-                "\$${job.salary}/Month",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
+              Text.rich(
+                TextSpan(
+                  text: "\$${job.salary.substring(0,2)}K",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                  children: const [
+                    TextSpan(
+                      text: "/Month",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -88,9 +99,12 @@ class JobListItem extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.blue),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.blueAccent),
+        ),
       ),
     );
   }

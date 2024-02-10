@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../HomeScreen_Search/home_screen.dart';
+import '../HomeScreen_Search/HomeView.dart';
 import '../Login_SignUp/login_screen.dart';
 import 'intro_screen.dart';
 
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
     if (isLoggedIn) {
-      Get.off(() => HomeScreen());
+      Get.off(() => HomeContent());
     } else if (hasViewedIntro) {
       Get.off(() => LoginPage());
     } else {

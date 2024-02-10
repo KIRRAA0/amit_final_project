@@ -3,12 +3,25 @@ import 'package:get/get.dart';
 import '../../Controller/job_search_controller.dart';
 import '../../Model/jobs_model.dart';
 
-class JobSearchScreen extends StatelessWidget {
-  final JobSearchController controller = Get.put(JobSearchController()); // Initialize your controller
+class JobSearchScreen extends StatefulWidget {
+  final List<JobModel> jobsData;
 
-  JobSearchScreen({Key? key, required List<JobModel> jobsData}) : super(key: key) {
-    controller.jobsList.assignAll(jobsData); // Assign jobs data to controller
-    controller.filterJobs(''); // Initialize filtered jobs
+  const JobSearchScreen({Key? key, required this.jobsData}) : super(key: key);
+
+  @override
+  State<JobSearchScreen> createState() => _JobSearchScreenState();
+}
+
+class _JobSearchScreenState extends State<JobSearchScreen> {
+  final JobSearchController controller = Get.find<JobSearchController>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.jobsList.assignAll(widget.jobsData); // Assign jobs data to controller
+      controller.filterJobs(''); // Initialize filtered jobs
+    });
   }
 
   @override

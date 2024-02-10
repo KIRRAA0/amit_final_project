@@ -1,6 +1,7 @@
 import 'package:amit_final_project/View/HomeScreen_Search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../API/Api_helper.dart';
 import '../../Controller/create_account_controller.dart';
@@ -34,93 +35,124 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              UserInfoWithNotification(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: UserInfoWithNotification(
                 usernameFuture: getUsernameFromSharedPreferences(),
               ),
-              const SizedBox(
-                height: 25,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Hero(
-                  tag: 'searchField',
-                  child: Material(
-                    type: MaterialType.transparency,
-                    child: TextFormField(
-                      onTap: () async {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        final jobsData = await _jobsFuture;
-                        Get.to(() => JobSearchScreen(jobsData: jobsData),
-                            transition: Transition.fade);
-                      },
-                      controller: searchController,
-                      readOnly: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Search jobs',
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35)),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Hero(
+                          tag: 'searchField',
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: TextFormField(
+                              onTap: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                  final jobsData = await _jobsFuture;
+                                  Get.to(() => JobSearchScreen(jobsData: jobsData), transition: Transition.fade);
+                                });
+                              },
+                              controller: searchController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Search jobs',
+                                prefixIcon: Icon(Iconsax.search_normal),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Suggested Job",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                fontFamily: 'SF Pro Display',
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                "View All",
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      FutureBuilder<List<JobModel>>(
+                        future: _jobsFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            print(snapshot.error);
+                            return Text('Error: ${snapshot.error}');
+                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return const Text('No jobs available');
+                          } else {
+                            return buildCarouselSlider(snapshot.data!);
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      FutureBuilder<List<JobModel>>(
+                        future: _jobsFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            print(snapshot.error);
+                            return Text('Error: ${snapshot.error}');
+                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return const Text('No jobs available');
+                          } else {
+                            return ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                return JobListItem(job: snapshot.data![index]);
+                              },
+                              separatorBuilder: (BuildContext context, int index) {
+                                return const Divider();
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 25,
-              ),
-              FutureBuilder<List<JobModel>>(
-                future: _jobsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    print(snapshot.error);
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('No jobs available');
-                  } else {
-                    return buildCarouselSlider(snapshot.data!);
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              FutureBuilder<List<JobModel>>(
-                future: _jobsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    print(snapshot.error);
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('No jobs available');
-                  } else {
-                    return Expanded(
-                      child: ListView.separated(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return JobListItem(job: snapshot.data![index]);
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const Divider();
-                        },
-                      ),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Controller/create_account_controller.dart';
+import 'Controller/job_search_controller.dart';
 import 'View/On_Boarding/splash_screen.dart';
 
 Future<void> main() async {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put<RegistrationController>(RegistrationController());
     Get.put<LoginController>(LoginController());
+    Get.put(JobSearchController()); // Initialize JobSearchController immediately
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
