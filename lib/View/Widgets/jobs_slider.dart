@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../../Model/jobs_model.dart';
@@ -7,10 +8,10 @@ class StyledContainer extends StatelessWidget {
   final Color backgroundColor;
 
   const StyledContainer({
-    Key? key,
+    super.key,
     required this.text,
     required this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +66,8 @@ class CarouselItem extends StatelessWidget {
                       height: 50,
                       child: ClipOval(
                         child: Image.network(
-                          job.image,
                           fit: BoxFit.cover,
+                          job.image,
                         ),
                       ),
                     ),
@@ -138,7 +139,8 @@ class CarouselItem extends StatelessWidget {
                         text: const TextSpan(
                           children: [
                             TextSpan(
-                                text: "\$12K-15K", style: TextStyle(fontSize: 18)),
+                                text: "\$12K-15K",
+                                style: TextStyle(fontSize: 18)),
                             TextSpan(
                                 text: "/Month", style: TextStyle(fontSize: 10)),
                           ],
@@ -188,7 +190,6 @@ Widget buildCarouselSlider(List<JobModel> jobs) {
     }).toList(),
   );
 }
-
 
 class Category9ItemWidget extends StatelessWidget {
   final String data;

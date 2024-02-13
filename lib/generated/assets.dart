@@ -11,6 +11,7 @@ class Assets {
   static const String assetsIntro3 = 'assets/intro3.png';
   static const String assetsLogo = 'assets/Logo.png';
   static const String assetsPassword = 'assets/Password.png';
+  static const String assetsSearch = 'assets/Search.png';
   static const String assetsSetupDone = 'assets/setup_done.png';
 
 }

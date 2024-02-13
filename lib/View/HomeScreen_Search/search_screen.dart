@@ -1,7 +1,10 @@
+import 'package:amit_final_project/View/HomeScreen_Search/recents.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../Controller/job_search_controller.dart';
 import '../../Model/jobs_model.dart';
+import 'filter_search.dart';
 
 class JobSearchScreen extends StatefulWidget {
   final List<JobModel> jobsData;
@@ -18,9 +21,9 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.jobsList.assignAll(widget.jobsData); // Assign jobs data to controller
-      controller.filterJobs(''); // Initialize filtered jobs
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      controller.jobsList.assignAll(widget.jobsData);
+      controller.filterJobs('');
     });
   }
 
@@ -47,9 +50,14 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
                           autofocus: true,
                           decoration: const InputDecoration(
                             labelText: 'Search jobs',
-                            prefixIcon: Icon(Icons.search),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35)),
+                            ),
+                            prefixIcon: Icon(Iconsax.search_normal),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(35)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35)),
                             ),
                           ),
                           onChanged: (value) => controller.filterJobs(value),
@@ -61,14 +69,13 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
               ),
             ),
             Expanded(
-              child: Obx(() => ListView.builder(
-                itemCount: controller.filteredJobs.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(controller.filteredJobs[index].name),
-                  );
-                },
-              )),
+              child: Obx(() {
+                if (!controller.showPlaceholder.isTrue) {
+                  return const FilterScreen();
+                } else {
+                  return const FilteredJobsListView();
+                }
+              }),
             ),
           ],
         ),
