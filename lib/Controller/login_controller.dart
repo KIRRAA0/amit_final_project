@@ -27,15 +27,11 @@ class LoginController extends GetxController {
   }
 
   void updateButtonState() {
-    print("Updating button state xxxxxxzzzzzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxx");
     isButtonEnabled.value = _isButtonEnabled();
-    print(
-        "${isButtonEnabled.value}Updating button state xxxxxxzzzzzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxx");
-  }
+     }
 
   bool _isButtonEnabled() {
-    print("xxxxxxxxxxxxxxxxEmail: ${emailController.text}");
-    print("xxxxxxxxxxxPassword: ${passwordController.text}");
+
 
     return emailController.text.isNotEmpty &&
         passwordController.text.isNotEmpty;
@@ -60,7 +56,6 @@ class LoginController extends GetxController {
       );
       if (response.data != null && response.data is Map<String, dynamic>) {
         UserData userData = UserData.fromJson(response.data);
-        print(userData.token);
         if (userData.token != null) {
           token = userData.token!;
           username = userData.data.name;

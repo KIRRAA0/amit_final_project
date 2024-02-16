@@ -54,7 +54,7 @@ class UserInfoWithNotification extends StatelessWidget {
             ),
           ],
         ),
-        NotificationIconButton(),
+        const NotificationIconButton(),
       ],
     );
   }
@@ -62,6 +62,8 @@ class UserInfoWithNotification extends StatelessWidget {
 
 
 class NotificationIconButton extends StatelessWidget {
+  const NotificationIconButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,7 +77,7 @@ class NotificationIconButton extends StatelessWidget {
         ),
       ),
       child: IconButton(
-        icon: Icon(Iconsax.notification),
+        icon: const Icon(Iconsax.notification),
         onPressed: () {
           // Add your notification handling logic here
         },

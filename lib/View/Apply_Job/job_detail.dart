@@ -1,21 +1,23 @@
+import 'package:amit_final_project/View/Apply_Job/apply_job_screen.dart';
+import 'package:amit_final_project/View/Apply_Job/people_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:slide_switcher/slide_switcher.dart';
 import '../../Model/jobs_model.dart';
+import 'company_page.dart';
+import 'description_page.dart';
 
-class JobDetailsPage extends StatefulWidget {
-  final JobModel job;
-
-  const JobDetailsPage({Key? key, required this.job}) : super(key: key);
-
-  @override
-  _JobDetailsPageState createState() => _JobDetailsPageState();
+class JobDetailsController extends GetxController {
+  var selectedIndex = 0.obs;
 }
 
-class _JobDetailsPageState extends State<JobDetailsPage> {
-  int selectedIndex = 0; // Maintain the selected index in the state
+class JobDetailsPage extends StatelessWidget {
+  final JobModel job;
+  final JobDetailsController controller = Get.put(JobDetailsController());
+
+  JobDetailsPage({Key? key, required this.job}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  widget.job.image,
+                  job.image,
                   width: screenWidth * 0.21,
                   height: screenHeight * 0.1,
                   fit: BoxFit.cover,
@@ -53,7 +55,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
             ),
             SizedBox(height: screenHeight * 0.02),
             Text(
-              widget.job.name,
+              job.name,
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -63,16 +65,16 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
             ),
             SizedBox(height: screenHeight * 0.009),
             Text(
-              "${widget.job.compName} • EGYPT",
+              "${job.compName} • EGYPT",
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: Colors.black.withOpacity(0.6),
-                  fontSize: screenHeight * 0.017,
+                  fontSize: screenHeight * 0.014,
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.04),
+            SizedBox(height: screenHeight * 0.02),
             Wrap(
               spacing: 6,
               children: [
@@ -84,9 +86,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
             SizedBox(height: screenHeight * 0.04),
             SlideSwitcher(
               onSelect: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
+                controller.selectedIndex.value = index;
               },
               containerHeight: 44,
               containerWight: screenWidth - 32,
@@ -100,26 +100,56 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                 buildSwitcherChild('People', 2),
               ],
             ),
+            const SizedBox(height: 16),
+            Obx(() => IndexedStack(
+                  index: controller.selectedIndex.value,
+                  children: [
+                    DescriptionPage(job: job),
+                    CompanyPage(job: job),
+                    PeoplePage(job: job),
+                  ],
+                )),
+            const SizedBox(height: 30),
+
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        splashColor: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        onPressed: () {
+          Get.to(() => const ApplyJob());
+        },
+        label: const Padding(
+          padding: EdgeInsets.all(120.0),
+          child: Text(
+            'Apply Now',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        backgroundColor: Colors.blue[900],
+        elevation: 8,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
   Widget buildSwitcherChild(String text, int index) {
-    bool isSelected = index == selectedIndex;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Text(
-        text,
-        style: GoogleFonts.inter(
-          textStyle: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontSize: 14,
+    return Obx(() {
+      bool isSelected = controller.selectedIndex.value == index;
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Text(
+          text,
+          style: GoogleFonts.inter(
+            textStyle: TextStyle(
+              color: isSelected ? Colors.white : Colors.black,
+              fontSize: 14,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget buildTagContainer(String text, Color color) {

@@ -9,14 +9,14 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.hintText,
     required this.controller,
     this.icon,
     this.obscureText = false,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -38,7 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.hintText,
         prefixIcon: widget.icon != null ? Icon(widget.icon) : null,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(13.0),
           borderSide: const BorderSide(
             color: Colors.grey,
             width: 2.0,
