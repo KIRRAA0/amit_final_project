@@ -14,33 +14,40 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Builder(
       builder: (context) {
-        return Container(
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: isButtonEnabled
-                  ? [Colors.blue, Colors.indigoAccent]
-                  : [Colors.grey, Colors.grey],
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: screenHeight * 0.06,
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isButtonEnabled
+                    ? [Colors.blue, Colors.indigoAccent]
+                    : [Colors.grey, Colors.grey],
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(25)),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: isButtonEnabled ? Colors.white : Colors.grey,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              shadowColor: Colors.transparent,
-            ),
-            onPressed: isButtonEnabled ? onPressed : null,
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 18,
-                fontFamily: 'SF Pro Display',
-                fontWeight: FontWeight.w500,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                splashFactory: NoSplash.splashFactory,
+                foregroundColor: isButtonEnabled ? Colors.white : Colors.grey,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                shadowColor: Colors.transparent,
+              ),
+              onPressed: isButtonEnabled ? onPressed : null,
+              child: Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'SF Pro Display',
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),

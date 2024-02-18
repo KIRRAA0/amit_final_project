@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Widgets/custom_textfiled.dart';
 
 class BiodataPage extends StatefulWidget {
-  BiodataPage({Key? key}) : super(key: key);
+  const BiodataPage({super.key});
 
   @override
   _BiodataPageState createState() => _BiodataPageState();
@@ -14,6 +15,7 @@ class BiodataPage extends StatefulWidget {
 class _BiodataPageState extends State<BiodataPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   void initState() {
@@ -47,7 +49,8 @@ class _BiodataPageState extends State<BiodataPage> {
             ),
             Text(
               "Fill Your Bio data correctly",
-              style: TextStyle(fontSize: 12.5, color: Colors.black.withOpacity(0.5)),
+              style: TextStyle(
+                  fontSize: 12.5, color: Colors.black.withOpacity(0.5)),
             ),
             SizedBox(height: screenHeight * 0.045),
             const Text(
@@ -74,6 +77,22 @@ class _BiodataPageState extends State<BiodataPage> {
               controller: emailController,
               icon: Icons.email_outlined,
               obscureText: false,
+            ),
+            SizedBox(height: screenHeight * 0.03),
+            const Text(
+              "Email",
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: screenHeight * 0.01),
+            IntlPhoneField(
+              decoration:  InputDecoration(
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: const BorderSide(),
+                ),
+              ),
+              initialCountryCode: 'EG',
             ),
           ],
         ),

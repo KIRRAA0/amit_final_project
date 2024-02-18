@@ -1,5 +1,6 @@
 import 'package:amit_final_project/View/Apply_Job/type_of_work_screen.dart';
 import 'package:amit_final_project/View/Apply_Job/upload_portfolio.dart';
+import 'package:amit_final_project/View/Widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Widgets/stepper_row.dart';
@@ -27,24 +28,27 @@ class ApplyJob extends StatelessWidget {
               onPageChanged: (int index) {
                 stepperController.goToStep(index);
               },
-              children:  [
+              children: [
                 BiodataPage(),
                 TypeOfWorkPage(),
                 UploadPortfolioPage(),
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              final currentPageIndex = pageController.page!.round();
-              pageController.animateToPage(
-                currentPageIndex + 1,
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeInOut,
-              );
-            },
-            child: const Text('Next Page'),
-          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomButton(
+                onPressed: () {
+                  final currentPageIndex = pageController.page!.round();
+                  pageController.animateToPage(
+                    currentPageIndex + 1,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                text: 'Next',
+                isButtonEnabled: true),
+          )
         ],
       ),
     );
