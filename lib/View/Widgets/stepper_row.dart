@@ -13,7 +13,7 @@ class StepperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(

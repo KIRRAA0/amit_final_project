@@ -11,6 +11,8 @@ class JobListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: () {
         Get.to(() => JobDetailsPage(job: job));
@@ -75,17 +77,17 @@ class JobListItem extends StatelessWidget {
                 ),
                 Text.rich(
                   TextSpan(
-                    text: "\$${job.salary.substring(0,2)}K",
-                    style: const TextStyle(
-                      fontSize: 20,
+                    text: "\$${job.salary.substring(0, 2)}K",
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.04, // Adjust font size dynamically
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
-                    children: const [
+                    children:  [
                       TextSpan(
                         text: "/Month",
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: screenWidth * 0.03, // Adjust font size dynamically
                           color: Colors.grey,
                         ),
                       ),

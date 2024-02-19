@@ -20,7 +20,7 @@ class TypeOfWorkPage extends StatelessWidget {
           Text(
             "Fill Your Bio data correctly",
             style: TextStyle(
-                fontSize: 12.5, color: Colors.black.withOpacity(0.5)),
+                fontSize: 14.5, color: Colors.black.withOpacity(0.5)),
           ),
           SizedBox(height: screenHeight * 0.045),
           const Expanded(child: TypeOfWorkTile()),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TypeOfWorkTile extends StatefulWidget {
-  const TypeOfWorkTile({Key? key}) : super(key: key);
+  const TypeOfWorkTile({super.key});
 
   @override
   _TypeOfWorkTileState createState() => _TypeOfWorkTileState();
@@ -18,7 +18,6 @@ class _TypeOfWorkTileState extends State<TypeOfWorkTile> {
 
   void _handleJobSelection(String selectedJob) {
     setState(() {
-      // Iterate through all jobs and set them to false except for the selected one
       _jobSelectionStatus.forEach((jobTitle, _) {
         _jobSelectionStatus[jobTitle] = jobTitle == selectedJob;
       });

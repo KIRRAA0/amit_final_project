@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../../Model/jobs_model.dart';
@@ -42,6 +41,8 @@ class CarouselItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
@@ -80,9 +81,9 @@ class CarouselItem extends StatelessWidget {
                         children: [
                           Text(
                             job.name,
-                            style: const TextStyle(
+                            style:  TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: screenWidth * 0.039, // Adjust font size dynamically
                               fontFamily: 'SF Pro Display',
                               fontWeight: FontWeight.w500,
                               letterSpacing: 0.18,

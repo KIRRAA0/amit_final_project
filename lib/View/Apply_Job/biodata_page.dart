@@ -34,7 +34,6 @@ class _BiodataPageState extends State<BiodataPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
@@ -50,7 +49,7 @@ class _BiodataPageState extends State<BiodataPage> {
             Text(
               "Fill Your Bio data correctly",
               style: TextStyle(
-                  fontSize: 12.5, color: Colors.black.withOpacity(0.5)),
+                  fontSize: 14.5, color: Colors.black.withOpacity(0.5)),
             ),
             SizedBox(height: screenHeight * 0.045),
             const Text(
