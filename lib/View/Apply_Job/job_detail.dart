@@ -17,7 +17,7 @@ class JobDetailsPage extends StatelessWidget {
   final JobModel job;
   final JobDetailsController controller = Get.put(JobDetailsController());
 
-  JobDetailsPage({Key? key, required this.job}) : super(key: key);
+  JobDetailsPage({super.key, required this.job});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,6 @@ class JobDetailsPage extends StatelessWidget {
                   ],
                 )),
             const SizedBox(height: 30),
-
           ],
         ),
       ),
@@ -118,7 +117,12 @@ class JobDetailsPage extends StatelessWidget {
         splashColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         onPressed: () {
-          Get.to(() => const ApplyJob());
+          Get.to(
+              () => ApplyJob(
+                    job: job,
+                  ),
+              transition: Transition.rightToLeftWithFade,
+              duration: const Duration(milliseconds: 500));
         },
         label: const Padding(
           padding: EdgeInsets.all(120.0),

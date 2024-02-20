@@ -16,6 +16,8 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -33,8 +35,8 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 35,
+                SizedBox(
+                  height: screenHeight * 0.04,
                 ),
                 const Text(
                   "Login",
@@ -46,8 +48,8 @@ class LoginPage extends GetView<LoginController> {
                     letterSpacing: 0.28,
                   ),
                 ),
-                const SizedBox(
-                  height: 38,
+                SizedBox(
+                  height: screenHeight * 0.06,
                 ),
                 const Text(
                   'Please login to find your dream job',
@@ -60,8 +62,8 @@ class LoginPage extends GetView<LoginController> {
                     letterSpacing: 0.16,
                   ),
                 ),
-                const SizedBox(
-                  height: 120,
+                SizedBox(
+                  height: screenHeight * 0.12,
                 ),
                 CustomTextField(
                   labelText: 'Email',
@@ -70,8 +72,8 @@ class LoginPage extends GetView<LoginController> {
                   icon: Icons.person_outline,
                   obscureText: false,
                 ),
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: screenHeight * 0.03,
                 ),
                 CustomTextField(
                   labelText: 'Password',
@@ -80,8 +82,8 @@ class LoginPage extends GetView<LoginController> {
                   icon: Icons.lock_outline,
                   obscureText: true,
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: screenHeight * 0.016,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,15 +103,17 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 100,
+                SizedBox(
+                  height: screenHeight * 0.1,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
                       onPressed: () {
-                        Get.to(() => const CreateAccountPage());
+                        Get.to(() => const CreateAccountPage(),
+                            transition: Transition.rightToLeftWithFade,
+                            duration: const Duration(milliseconds: 500));
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -124,36 +128,38 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: screenHeight * 0.008,
                 ),
                 Obx(() {
                   return CustomButton(
                     onPressed: controller.isButtonEnabled.value
                         ? () async {
-                      try {
-                        await controller.loginUser(
-                          email: controller.emailController.text,
-                          password: controller.passwordController.text,
-                        );
-                        // Set the isLoggedIn flag to true
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('isLoggedIn', true);
-                        Get.off(() => HomeScreen());
-                      } catch (e) {
-                        print('Login failed: $e');
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('isLoggedIn', false);
-                      }
-                    }
+                            try {
+                              await controller.loginUser(
+                                email: controller.emailController.text,
+                                password: controller.passwordController.text,
+                              );
+                              // Set the isLoggedIn flag to true
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setBool('isLoggedIn', true);
+                              Get.off(() => const HomeScreen());
+                            } catch (e) {
+                              print('Login failed: $e');
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setBool('isLoggedIn', false);
+                            }
+                          }
                         : null,
                     text: 'Login',
                     isButtonEnabled: controller.isButtonEnabled.value,
                   );
                 }),
                 const CustomDivider(text: 'or login with'),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: screenHeight * 0.008,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

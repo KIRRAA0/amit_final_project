@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import '../../Controller/create_account_controller.dart';
 import '../Widgets/custom_button.dart';
 
-class SetupDone extends StatelessWidget {
+class ApplicationComplete extends StatelessWidget {
   final RegistrationController controller = Get.find<RegistrationController>();
 
-  SetupDone({super.key});
+  ApplicationComplete({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +24,13 @@ class SetupDone extends StatelessWidget {
                 child: SizedBox.shrink(),
               ),
               Image.asset(
-                'assets/setup_done.png',
+                'assets/applied.png',
                 height: 200,
                 width: 200,
               ),
               const SizedBox(height: 20),
               const Text(
-                'Your account has been set up!',
+                'Your data has been sent!',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -38,7 +38,7 @@ class SetupDone extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const Text(
-                'We have customized feeds according to your preferences.',
+                'You will get a message from our team, about the announcement of employee acceptance',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
@@ -55,7 +55,7 @@ class SetupDone extends StatelessWidget {
                   );
 
                 },
-                text: 'Get Started',
+                text: 'Back to Home',
                 isButtonEnabled: true,
               ),
             ],

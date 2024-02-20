@@ -5,9 +5,9 @@ class UserInfoWithNotification extends StatelessWidget {
   final Future<String?> usernameFuture;
 
   const UserInfoWithNotification({
-    Key? key,
+    super.key,
     required this.usernameFuture,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

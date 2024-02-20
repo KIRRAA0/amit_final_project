@@ -9,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,9 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
     bool introSeen = prefs.getBool('introSeen') ?? false;
 
     if (introSeen) {
-      Get.off(LoginPage());
+      Get.off(LoginPage(),
+          transition: Transition.rightToLeftWithFade,
+          duration: const Duration(milliseconds: 500));
     }
   }
 
@@ -104,7 +106,10 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
     return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * 0.02,
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +119,7 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
               children: [
                 Image.asset(
                   "assets/Logo.png",
-                  width: 100,
+                  width: MediaQuery.of(context).size.width * 0.3,
                 ),
                 TextButton(
                   onPressed: () {
@@ -128,8 +133,8 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
             Expanded(
               child: Container(
@@ -137,8 +142,8 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
                 child: Image.asset(imageUrl, fit: BoxFit.cover),
               ),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
             Align(
               alignment: Alignment.centerRight,
@@ -147,27 +152,31 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
                   children: <TextSpan>[
                     TextSpan(
                       text: title2,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 40.0),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: MediaQuery.of(context).size.width * 0.07),
                     ),
                     TextSpan(
                       text: title3,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
-                        fontSize: 40.0,
+                        fontSize: MediaQuery.of(context).size.width * 0.07,
                       ),
                     ),
                     TextSpan(
                       text: title4,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 40.0),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: MediaQuery.of(context).size.width * 0.07),
                     ),
                   ],
                 ),
               ),
             ),
-            Text(body, style: const TextStyle(fontSize: 24.0)),
+            Text(body,
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05)),
           ],
         ),
       ),
@@ -210,7 +219,9 @@ class _IntroductionScreenExampleState extends State<IntroductionScreenExample> {
         onPressed: () {
           if (_currentPage == 2) {
             markIntroAsSeen();
-            Get.off(LoginPage());
+            Get.off(LoginPage(),
+                transition: Transition.rightToLeftWithFade,
+                duration: const Duration(milliseconds: 500));
           } else {
             _pageController.nextPage(
               duration: const Duration(milliseconds: 500),

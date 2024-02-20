@@ -1,9 +1,9 @@
-import 'package:amit_final_project/View/Login_SignUp/prefefred_location.dart';
-import 'package:amit_final_project/View/Widgets/custom_button.dart';
-import 'package:amit_final_project/View/Widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../Widgets/custom_button.dart';
+import '../Widgets/custom_card.dart';
+import 'prefefred_location.dart';
 
 class InterestsPage extends StatefulWidget {
   const InterestsPage({Key? key}) : super(key: key);
@@ -34,18 +34,20 @@ class _InterestsPageState extends State<InterestsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'What type of work are you interested in?',
                 style: TextStyle(
                   color: Color(0xFF111827),
-                  fontSize: 33,
+                  fontSize: screenWidth > 600 ? 33 : 24,
                   fontFamily: 'SF Pro Display',
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.24,
@@ -54,11 +56,11 @@ class _InterestsPageState extends State<InterestsPage> {
               const SizedBox(
                 height: 5,
               ),
-              const Text(
+              Text(
                 'Tell us what you’re interested in so we can customize the app for your needs.',
                 style: TextStyle(
                   color: Color(0xFF737379),
-                  fontSize: 16,
+                  fontSize: screenWidth > 600 ? 16 : 14,
                   fontFamily: 'SF Pro Display',
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.16,
@@ -69,8 +71,8 @@ class _InterestsPageState extends State<InterestsPage> {
               ),
               Expanded(
                 child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: screenWidth > 600 ? 4 : 2,
                     crossAxisSpacing: 16.0,
                     mainAxisSpacing: 16.0,
                   ),
@@ -91,11 +93,14 @@ class _InterestsPageState extends State<InterestsPage> {
                 ),
               ),
               CustomButton(
-                  onPressed: () {
-                    Get.to(() => const PrefefredLocation());
-                  },
-                  text: 'Next',
-                  isButtonEnabled: true)
+                onPressed: () {
+                  Get.to(() => const PrefefredLocation(),
+                      transition: Transition.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 500));
+                },
+                text: 'Next',
+                isButtonEnabled: true,
+              ),
             ],
           ),
         ),

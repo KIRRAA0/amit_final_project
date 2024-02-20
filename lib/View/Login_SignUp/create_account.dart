@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Controller/create_account_controller.dart';
 import '../Widgets/custom_appbar.dart';
@@ -15,6 +16,8 @@ class CreateAccountPage extends GetView<RegistrationController> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: CustomAppBar(
         actions: [
@@ -34,8 +37,8 @@ class CreateAccountPage extends GetView<RegistrationController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 35,
+                SizedBox(
+                  height: screenHeight * 0.05,
                 ),
                 const Text(
                   "Create Account",
@@ -47,8 +50,8 @@ class CreateAccountPage extends GetView<RegistrationController> {
                     letterSpacing: 0.28,
                   ),
                 ),
-                const SizedBox(
-                  height: 38,
+                SizedBox(
+                  height: screenHeight * 0.06,
                 ),
                 const Text(
                   'Please fill in the details to create your account',
@@ -57,12 +60,11 @@ class CreateAccountPage extends GetView<RegistrationController> {
                     fontSize: 16,
                     fontFamily: 'SF Pro Display',
                     fontWeight: FontWeight.w400,
-                    height: 0.08,
                     letterSpacing: 0.16,
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: screenHeight * 0.03,
                 ),
                 CustomTextField(
                   labelText: 'Username',
@@ -71,8 +73,8 @@ class CreateAccountPage extends GetView<RegistrationController> {
                   icon: Icons.person,
                   obscureText: false,
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: screenHeight * 0.015,
                 ),
                 CustomTextField(
                   labelText: 'Email',
@@ -81,9 +83,8 @@ class CreateAccountPage extends GetView<RegistrationController> {
                   icon: Icons.email,
                   obscureText: false,
                 ),
-                const SizedBox(
-                  height: 15,
-
+                SizedBox(
+                  height: screenHeight * 0.015,
                 ),
                 CustomTextField(
                   labelText: 'Password',
@@ -92,15 +93,15 @@ class CreateAccountPage extends GetView<RegistrationController> {
                   icon: Icons.lock,
                   obscureText: true,
                 ),
-                const SizedBox(
-                  height: 180,
+                SizedBox(
+                  height: screenHeight * 0.10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
                       onPressed: () {
-                        Get.to(() => LoginPage());
+                        Get.back();
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -115,34 +116,37 @@ class CreateAccountPage extends GetView<RegistrationController> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: screenHeight * 0.008,
                 ),
                 Obx(() {
                   return CustomButton(
                     onPressed: controller.isButtonEnabled.value
                         ? () async {
-                      try {
-                        await controller.registerUser(
-                          name: controller.usernameController.text,
-                          email: controller.emailController.text,
-                          password: controller.passwordController.text,
-                        );
-
-                        Get.to(() => const InterestsPage());
-                      } catch (e) {
-                        print('Registration failed: $e');
-                      }
-                    }
+                            try {
+                              await controller.registerUser(
+                                name: controller.usernameController.text,
+                                email: controller.emailController.text,
+                                password: controller.passwordController.text,
+                              );
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setBool('isLoggedIn', true);
+                              Get.to(() => const InterestsPage(),
+                                  transition: Transition.rightToLeftWithFade,
+                                  duration: const Duration(milliseconds: 500));
+                            } catch (e) {
+                              print('Registration failed: $e');
+                            }
+                          }
                         : null,
                     text: 'Create Account',
                     isButtonEnabled: controller.isButtonEnabled.value,
                   );
                 }),
-
                 const CustomDivider(text: 'or signup with'),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: screenHeight * 0.008,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

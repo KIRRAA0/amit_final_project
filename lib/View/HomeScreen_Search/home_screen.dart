@@ -12,7 +12,7 @@ import '../Widgets/jobs_slider.dart';
 import '../Widgets/userinfo row.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -71,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       transition: Transition.fade);
                                 });
                               },
+                              readOnly: true,
                               controller: searchController,
                               decoration: const InputDecoration(
                                 enabledBorder: OutlineInputBorder(

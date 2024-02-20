@@ -1,18 +1,25 @@
-import 'package:amit_final_project/View/Apply_Job/type_of_work_screen.dart';
-import 'package:amit_final_project/View/Apply_Job/upload_portfolio.dart';
-import 'package:amit_final_project/View/Widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../API/Api_helper.dart';
+import '../../API/apply_job_API.dart';
+import '../../Model/jobs_model.dart';
+import '../Widgets/custom_button.dart';
 import '../Widgets/stepper_row.dart';
+import 'application_complete.dart';
 import 'biodata_page.dart';
+import 'type_of_work_screen.dart';
+import 'upload_portfolio.dart';
 
 class ApplyJob extends StatelessWidget {
-  const ApplyJob({super.key});
+  final JobModel job;
+
+  const ApplyJob({Key? key, required this.job}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final PageController pageController = PageController();
     final StepperController stepperController = Get.put(StepperController());
+    final PageController pageController = PageController();
+    var apiData = ApiData();
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +35,7 @@ class ApplyJob extends StatelessWidget {
               onPageChanged: (int index) {
                 stepperController.goToStep(index);
               },
-              children: [
+              children: const [
                 BiodataPage(),
                 TypeOfWorkPage(),
                 UploadPortfolioPage(),
@@ -37,17 +44,33 @@ class ApplyJob extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CustomButton(
+            child: Obx(() {
+              final currentPageIndex = stepperController.currentStep.value;
+              final isLastPage = currentPageIndex ==
+                  2; // Assuming 2 is the index of the last page
+              final buttonText = isLastPage ? 'Submit' : 'Next';
+
+              return CustomButton(
                 onPressed: () {
-                  final currentPageIndex = pageController.page!.round();
-                  pageController.animateToPage(
-                    currentPageIndex + 1,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOut,
-                  );
+                  if (isLastPage) {
+                    applyToJob(job);
+                    Get.to(() => ApplicationComplete(),
+                        transition: Transition.rightToLeftWithFade,
+                        duration: const Duration(milliseconds: 500));
+                  } else {
+                    final nextPageIndex = currentPageIndex + 1;
+                    stepperController.goToStep(nextPageIndex);
+                    pageController.animateToPage(
+                      nextPageIndex,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    );
+                  }
                 },
-                text: 'Next',
-                isButtonEnabled: true),
+                text: buttonText,
+                isButtonEnabled: true,
+              );
+            }),
           )
         ],
       ),

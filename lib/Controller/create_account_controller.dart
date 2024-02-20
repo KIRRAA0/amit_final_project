@@ -16,6 +16,7 @@ class RegistrationController extends GetxController {
 
   String token = '';
   String username = '';
+  String Email = '';
 
   @override
   void onInit() {
@@ -29,9 +30,7 @@ class RegistrationController extends GetxController {
   }
 
   void updateButtonState() {
-    print("Updating button state xxxxxxzzzzzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxx");
     isButtonEnabled.value = _isButtonEnabled();
-    print("${isButtonEnabled.value}Updating button state xxxxxxzzzzzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxx");
   }
 
   bool _isButtonEnabled() {
@@ -61,13 +60,13 @@ class RegistrationController extends GetxController {
         ),
       );
 
-      print(response.data);
       UserData userData = UserData.fromJson(response.data);
 
       token = userData.token!;
       username = userData.data.name;
+      Email =userData.data.email;
 
-      _saveDataToSharedPreferences(token,username);
+      _saveDataToSharedPreferences(token,username,Email);
 
       return userData;
     } catch (e) {
@@ -76,10 +75,11 @@ class RegistrationController extends GetxController {
     }
   }
 
-  Future<void> _saveDataToSharedPreferences(String token, String username) async {
+  Future<void> _saveDataToSharedPreferences(String token, String username, String email) async {
     final SharedPreferences prefs = await _prefs;
     prefs.setString('user_token', token);
     prefs.setString('user_name', username);
+    prefs.setString('user_email', email);
   }
 
   @override

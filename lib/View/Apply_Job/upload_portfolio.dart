@@ -1,6 +1,7 @@
-import 'package:amit_final_project/View/Widgets/inter_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart'; // Import GetStorage
 
+import '../Widgets/inter_text_style.dart';
 import '../Widgets/upload_pdf.dart';
 
 class UploadPortfolioPage extends StatelessWidget {
@@ -9,6 +10,11 @@ class UploadPortfolioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
+    // Read the file names from GetStorage
+    final uploadedFileName1 = GetStorage().read('uploaded_file_name1') ?? '';
+    final uploadedFileName2 = GetStorage().read('uploaded_file_name2') ?? '';
+
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: SingleChildScrollView(
@@ -26,9 +32,16 @@ class UploadPortfolioPage extends StatelessWidget {
             ),
             SizedBox(height: screenHeight * 0.045),
             InterTextStyle.getTextWidget(text: 'Upload CV',),
-            FileUploadContainer(),
+            FileUploadContainer(
+              initialFileName: uploadedFileName1,
+              storageKey: 'uploaded_file_name1',
+            ),
             InterTextStyle.getTextWidget(text: 'Other File',),
-            FileUploadContainer(),
+            FileUploadContainer(
+              initialFileName: uploadedFileName2,
+              storageKey: 'uploaded_file_name2',
+            ),
+            Text(GetStorage().read('uploaded_file_name1_name') ?? 'null')
           ],
         ),
       ),

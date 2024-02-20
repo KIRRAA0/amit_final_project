@@ -11,11 +11,18 @@ class JobListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
-    return GestureDetector(
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: () {
-        Get.to(() => JobDetailsPage(job: job));
+        Get.to(() => JobDetailsPage(job: job),
+            transition: Transition.rightToLeftWithFade,
+            duration: const Duration(milliseconds: 500));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -79,15 +86,17 @@ class JobListItem extends StatelessWidget {
                   TextSpan(
                     text: "\$${job.salary.substring(0, 2)}K",
                     style: TextStyle(
-                      fontSize: screenWidth * 0.04, // Adjust font size dynamically
+                      fontSize: screenWidth * 0.04,
+                      // Adjust font size dynamically
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
-                    children:  [
+                    children: [
                       TextSpan(
                         text: "/Month",
                         style: TextStyle(
-                          fontSize: screenWidth * 0.03, // Adjust font size dynamically
+                          fontSize: screenWidth * 0.03,
+                          // Adjust font size dynamically
                           color: Colors.grey,
                         ),
                       ),

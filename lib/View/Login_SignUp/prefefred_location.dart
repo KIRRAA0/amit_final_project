@@ -73,7 +73,7 @@ class _PrefefredLocationState extends State<PrefefredLocation> {
                   });
                 },
                 containerHeight: 40,
-                containerWight: 350,
+                containerWight: 300,
                 children: const [
                   Text(
                     'Work from office',
@@ -112,7 +112,9 @@ class _PrefefredLocationState extends State<PrefefredLocation> {
               ),
               CustomButton(
                 onPressed: () {
-                  Get.to(() => SetupDone());
+                  Get.to(() => SetupDone(),
+                      transition: Transition.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 500));
                 },
                 text: 'Next',
                 isButtonEnabled: true,
