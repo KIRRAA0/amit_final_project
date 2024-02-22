@@ -13,15 +13,6 @@ Future<void> applyToJob(JobModel job) async {
     final filePath2 = GetStorage().read('uploaded_file_name2_path') ?? '';
     final phone = GetStorage().read('user_phone') ?? '';
     final token = GetStorage().read('user_token');
-    print('uploadedFileName1: $fileName1');
-    print('uploadedFileName2: $fileName2');
-    print('email: $email');
-    print('name: $name');
-    print('phone: $phone');
-    print("tokennn : ${GetStorage().read('user_token')}");
-    print('tokenxx: $token');
-
-    // Construct FormData
     FormData formData = FormData.fromMap({
       "cv_file": await MultipartFile.fromFile(filePath1, filename: fileName1),
       "name": name,
@@ -30,7 +21,7 @@ Future<void> applyToJob(JobModel job) async {
       "work_type": "full-time",
       "other_file":
           await MultipartFile.fromFile(filePath2, filename: fileName2),
-      "jobs_id": job.id, // Use job ID from the provided job object
+      "jobs_id": job.id,
       "user_id": "1",
     });
 

@@ -7,5 +7,6 @@ class ApiEndpoints {
   static const String profileEndpoint = '/auth/profile';
   static const String jobsEndpoint = '/jobs';
   static const String applyEndpoint = '/apply';
+  static const String favoritesEndpoint = '/favorites';
   //static const String postsEndpoint = '/posts';
 }

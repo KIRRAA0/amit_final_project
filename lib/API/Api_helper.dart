@@ -86,4 +86,5 @@ class ApiData {
       throw Exception('Failed to fetch jobs: $e');
     }
   }
+
 }

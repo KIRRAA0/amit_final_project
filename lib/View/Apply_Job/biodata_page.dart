@@ -33,7 +33,7 @@ class _BiodataPageState extends State<BiodataPage> {
     GetStorage().write('user_email', userEmail);
     nameController.text = userName ?? '';
     emailController.text = userEmail ?? '';
-    phoneController.text = userPhone?.substring(2) ?? '';
+    phoneController.text = userPhone?.substring(3) ?? '';
   }
 
   @override
@@ -86,7 +86,7 @@ class _BiodataPageState extends State<BiodataPage> {
             ),
             SizedBox(height: screenHeight * 0.01),
             GetBuilder<_BiodataPageController>(
-              init: _BiodataPageController(), // Initialize the controller
+              init: _BiodataPageController(),
               builder: (_BiodataPageController controller) {
                 return IntlPhoneField(
                   decoration: InputDecoration(

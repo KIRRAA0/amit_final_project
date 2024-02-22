@@ -1,6 +1,8 @@
+import 'package:amit_final_project/API/add_favorites_API.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../Model/jobs_model.dart';
 import '../Apply_Job/job_detail.dart';
 
@@ -63,10 +65,13 @@ class JobListItem extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(
-                    Icons.bookmark_border,
-                    size: 34,
+                    Iconsax.save_add,
+                    size: 30,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    addToFavourites(job.id);
+                    print(job.id);
+                  },
                 ),
               ],
             ),

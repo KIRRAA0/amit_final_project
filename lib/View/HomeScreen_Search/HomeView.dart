@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../Saved_Notifications/saved_jobs_screen.dart';
 import '../chats/messages_screen.dart';
 import 'home_screen.dart';
 
@@ -10,40 +11,47 @@ class HomeContent extends StatelessWidget {
 
   final RxInt currentIndex = 0.obs;
 
-  // Define a list of functions that return widgets
   final List<Widget Function()> pageFactories = [
-        () => HomeScreen(),
-        () => const MessagesScreen(),
+    () => const HomeScreen(),
+    () => const MessagesScreen(),
+    () => const FavoriteJobsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    double iconSize = MediaQuery.of(context).size.width * 0.08;
+
     return Scaffold(
       bottomNavigationBar: Obx(() => BottomNavigationBar(
-        currentIndex: currentIndex.value,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.home, size: 34),
-            activeIcon: Icon(Iconsax.home_15,size: 34,),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.message, size: 34),
-            activeIcon: Icon(Iconsax.message5,size: 34,),
-            label: 'Messages',
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        selectedLabelStyle: const TextStyle(color: Colors.blue),
-        unselectedLabelStyle: const TextStyle(color: Colors.grey),
-        onTap: (index) {
-          currentIndex.value = index; // This should be safe as it's only updating an observable
-        },
-      )),
-      body: Obx(() => pageFactories[currentIndex.value]()), // Call the function to create the widget
+            currentIndex: currentIndex.value,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Iconsax.home, size: iconSize),
+                activeIcon: Icon(Iconsax.home_15, size: iconSize),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Iconsax.message, size: iconSize),
+                activeIcon: Icon(Iconsax.message5, size: iconSize),
+                label: 'Messages',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Iconsax.save_24, size: iconSize),
+                activeIcon: Icon(Iconsax.save_minus, size: iconSize),
+                label: 'Saved',
+              ),
+            ],
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.grey,
+            selectedLabelStyle: const TextStyle(color: Colors.blue),
+            unselectedLabelStyle: const TextStyle(color: Colors.grey),
+            onTap: (index) {
+              currentIndex.value = index;
+            },
+          )),
+      body: Obx(() => pageFactories[currentIndex.value]()),
     );
   }
 }
