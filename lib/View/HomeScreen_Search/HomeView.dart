@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../Profile/profile_page.dart';
 import '../Saved_Notifications/saved_jobs_screen.dart';
 import '../chats/messages_screen.dart';
 import 'home_screen.dart';
@@ -15,6 +16,7 @@ class HomeContent extends StatelessWidget {
     () => const HomeScreen(),
     () => const MessagesScreen(),
     () => FavoriteJobsScreen(),
+    () =>  ProfilePage(),
   ];
 
   @override
@@ -38,6 +40,11 @@ class HomeContent extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.save_24, size: iconSize),
                 activeIcon: Icon(Iconsax.save_minus, size: iconSize),
+                label: 'Saved',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Iconsax.profile_circle, size: iconSize),
+                activeIcon: Icon(Iconsax.profile_circle, size: iconSize),
                 label: 'Saved',
               ),
             ],
