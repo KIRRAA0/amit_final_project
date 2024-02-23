@@ -1,21 +1,21 @@
-import 'package:amit_final_project/API/add_favorites_API.dart';
-import 'package:amit_final_project/View/Widgets/inter_text_style.dart';
+import 'package:amit_final_project/API/delete_favourites.dart';
+import 'package:amit_final_project/View/Widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../Model/favourite_model.dart';
+import '../Widgets/inter_text_style.dart';
 
 class FavouriteJobListItem extends StatelessWidget {
   final Favorite job;
+  final VoidCallback onDelete;
 
-  const FavouriteJobListItem({Key? key, required this.job}) : super(key: key);
+
+  const FavouriteJobListItem({super.key, required this.job, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -60,7 +60,12 @@ class FavouriteJobListItem extends StatelessWidget {
                   size: 30,
                 ),
                 onPressed: () {
-
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                     return ModalPage(job: job.job!, onDelete: onDelete,);
+                    },
+                  );
                 },
               ),
             ],
@@ -69,13 +74,13 @@ class FavouriteJobListItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InterTextStyle.getTextWidget(text: 'posted 2 days ago',size: 12,opacity: 0.5),
+              InterTextStyle.getTextWidget(
+                  text: 'posted 2 days ago', size: 12, opacity: 0.5),
               Text.rich(
                 TextSpan(
                   text: "\$${job.job!.salary.substring(0, 2)}K",
                   style: TextStyle(
                     fontSize: screenWidth * 0.04,
-                    // Adjust font size dynamically
                     fontWeight: FontWeight.bold,
                     color: Colors.green,
                   ),
@@ -84,7 +89,6 @@ class FavouriteJobListItem extends StatelessWidget {
                       text: "/Month",
                       style: TextStyle(
                         fontSize: screenWidth * 0.03,
-                        // Adjust font size dynamically
                         color: Colors.grey,
                       ),
                     ),

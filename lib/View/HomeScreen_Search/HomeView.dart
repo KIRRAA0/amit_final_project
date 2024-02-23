@@ -7,14 +7,14 @@ import '../chats/messages_screen.dart';
 import 'home_screen.dart';
 
 class HomeContent extends StatelessWidget {
-  HomeContent({Key? key}) : super(key: key);
+  HomeContent({super.key});
 
   final RxInt currentIndex = 0.obs;
 
   final List<Widget Function()> pageFactories = [
     () => const HomeScreen(),
     () => const MessagesScreen(),
-    () => const FavoriteJobsScreen(),
+    () => FavoriteJobsScreen(),
   ];
 
   @override

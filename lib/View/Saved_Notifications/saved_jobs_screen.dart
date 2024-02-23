@@ -1,51 +1,67 @@
 import 'package:flutter/material.dart';
-import '../../API/show_favourites_API.dart';
+import 'package:get/get.dart';
+import '../../Controller/Favourite_jobs_controller.dart';
 import '../../Model/favourite_model.dart';
 import '../Widgets/favourite_job_item.dart';
 
-class FavoriteJobsScreen extends StatefulWidget {
-  const FavoriteJobsScreen({super.key});
+class FavoriteJobsScreen extends StatelessWidget {
+  final FavoriteJobsController _controller = Get.put(FavoriteJobsController());
 
-  @override
-  _FavoriteJobsScreenState createState() => _FavoriteJobsScreenState();
-}
-
-class _FavoriteJobsScreenState extends State<FavoriteJobsScreen> {
-  late Future<List<Favorite>> _favoriteJobsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _favoriteJobsFuture = fetchFavouriteJobs();
-  }
+  FavoriteJobsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorite Jobs'),
+        title: const Text('Saved Jobs'),
+        centerTitle: true,
       ),
-      body: FutureBuilder<List<Favorite>>(
-        future: _favoriteJobsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            List<Favorite> favoriteJobs = snapshot.data ?? [];
-            return ListView.separated(
-              itemCount: favoriteJobs.length,
-              separatorBuilder: (BuildContext context, int index) => const Divider(), // Add a divider between items
-              itemBuilder: (context, index) {
-                Favorite job = favoriteJobs[index];
-                return FavouriteJobListItem(job: job);
-              },
-            );
-
-          }
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await _controller.fetchFavoriteJobs();
         },
+        child: Obx(() {
+          return _controller.isLoading.value
+              ? const Center(child: CircularProgressIndicator())
+              : _controller.favoriteJobs.isEmpty
+                  ? _buildNoFavoriteJobsWidget(context)
+                  : _buildFavoriteJobsList(context);
+        }),
       ),
+    );
+  }
+
+  Widget _buildNoFavoriteJobsWidget(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'No favorite jobs yet',
+              style: TextStyle(fontSize: 18),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Explore Jobs'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFavoriteJobsList(BuildContext context) {
+    return ListView.separated(
+      itemCount: _controller.favoriteJobs.length,
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      itemBuilder: (context, index) {
+        Favorite job = _controller.favoriteJobs[index];
+        return FavouriteJobListItem(
+          job: job,
+          onDelete: () => _controller.deleteJobFromFavorites(job.id),
+        );
+      },
     );
   }
 }
