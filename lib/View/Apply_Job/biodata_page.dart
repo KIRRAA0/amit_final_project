@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/custom_textfiled.dart';
 
 class BiodataPage extends StatefulWidget {
-  const BiodataPage({Key? key});
+  const BiodataPage({super.key,});
 
   @override
   _BiodataPageState createState() => _BiodataPageState();

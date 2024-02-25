@@ -1,13 +1,15 @@
+import 'package:amit_final_project/View/Profile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Login_SignUp/setup_done.dart';
+import '../Widgets/inter_text_style.dart';
 import '../Widgets/profile_widgets/about.dart';
 import '../Widgets/profile_widgets/information_row.dart';
 import '../Widgets/profile_widgets/profile_genral_tile.dart';
 import '../Widgets/sliver_appbar.dart';
-import '../Widgets/inter_text_style.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key});
@@ -38,19 +40,24 @@ class ProfilePage extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            InterTextStyle.getTextWidget(text: userName, size: 22),
                             InterTextStyle.getTextWidget(
-                                text: 'Senior UI/UX Designer', size: 12, opacity: 0.5),
+                                text: userName, size: 22),
+                            InterTextStyle.getTextWidget(
+                                text: 'Senior UI/UX Designer',
+                                size: 12,
+                                opacity: 0.5),
                             const InfoRow(),
                             const AboutColumn(),
                             Container(
                               width: double.infinity,
                               color: Colors.black.withOpacity(0.1),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 12),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0, horizontal: 12),
                                 child: Text(
                                   'General',
-                                  style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.5)),
                                 ),
                               ),
                             ),
@@ -58,7 +65,9 @@ class ProfilePage extends StatelessWidget {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: 5,
-                              separatorBuilder: (BuildContext context, int index) => const Divider(),
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
                               itemBuilder: (BuildContext context, int index) {
                                 IconData iconData;
                                 String text;
@@ -68,13 +77,17 @@ class ProfilePage extends StatelessWidget {
                                     iconData = Iconsax.profile_circle;
                                     text = 'Edit Profile';
                                     onTap = () {
+                                      Get.to(() => const EditProfilePage(),
+                                          transition:
+                                              Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));
                                     };
                                     break;
                                   case 1:
                                     iconData = Iconsax.folder;
                                     text = 'Portfolio';
-                                    onTap = () {
-                                    };
+                                    onTap = () {};
                                     break;
                                   case 2:
                                     iconData = Iconsax.global;
@@ -116,10 +129,12 @@ class ProfilePage extends StatelessWidget {
                               width: double.infinity,
                               color: Colors.black.withOpacity(0.1),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 12),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0, horizontal: 12),
                                 child: Text(
                                   'Others',
-                                  style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.5)),
                                 ),
                               ),
                             ),
@@ -127,7 +142,9 @@ class ProfilePage extends StatelessWidget {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: 4,
-                              separatorBuilder: (BuildContext context, int index) => const Divider(),
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
                               itemBuilder: (BuildContext context, int index) {
                                 IconData iconData;
                                 String text;
@@ -137,20 +154,17 @@ class ProfilePage extends StatelessWidget {
                                   case 0:
                                     iconData = Iconsax.profile_circle;
                                     text = 'Accessibility';
-                                    onTap = () {
-                                    };
+                                    onTap = () {};
                                     break;
                                   case 1:
                                     iconData = Iconsax.folder;
                                     text = 'Help Center';
-                                    onTap = () {
-                                    };
+                                    onTap = () {};
                                     break;
                                   case 2:
                                     iconData = Iconsax.global;
                                     text = 'Terms & Conditions';
-                                    onTap = () {
-                                    };
+                                    onTap = () {};
                                     break;
                                   case 3:
                                     iconData = Iconsax.notification;
@@ -172,7 +186,6 @@ class ProfilePage extends StatelessWidget {
                                   text: text,
                                   onTap: onTap,
                                   showIcon: false,
-
                                 );
                               },
                             ),

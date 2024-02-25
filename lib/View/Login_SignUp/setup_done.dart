@@ -1,3 +1,4 @@
+import 'package:amit_final_project/View/HomeScreen_Search/HomeView.dart';
 import 'package:amit_final_project/View/HomeScreen_Search/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,11 +50,10 @@ class SetupDone extends StatelessWidget {
               CustomButton(
                 onPressed: () {
                   Get.offAll(
-                        () => const HomeScreen(),
+                        () => HomeContent(),
                     transition: Transition.rightToLeftWithFade,
                     duration: const Duration(milliseconds: 500),
                   );
-
                 },
                 text: 'Get Started',
                 isButtonEnabled: true,
