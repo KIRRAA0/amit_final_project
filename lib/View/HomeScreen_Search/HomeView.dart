@@ -45,7 +45,7 @@ class HomeContent extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Icon(Iconsax.profile_circle, size: iconSize),
                 activeIcon: Icon(Iconsax.profile_circle, size: iconSize),
-                label: 'Saved',
+                label: 'Profile',
               ),
             ],
             backgroundColor: Colors.transparent,

@@ -7,7 +7,8 @@ import '../custom_textfiled.dart';
 class EditProfileForm extends StatefulWidget {
   final double screenHeight;
 
-  const EditProfileForm({Key? key, required this.screenHeight}) : super(key: key);
+  const EditProfileForm({Key? key, required this.screenHeight})
+      : super(key: key);
 
   @override
   _EditProfileFormState createState() => _EditProfileFormState();
@@ -17,13 +18,14 @@ class _EditProfileFormState extends State<EditProfileForm> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _getUserData();
   }
-  
+
   Future<void> _getUserData() async {
     String userName = GetStorage().read('user_name') ?? '';
     String userEmail = GetStorage().read('user_email') ?? '';
@@ -64,6 +66,18 @@ class _EditProfileFormState extends State<EditProfileForm> {
               labelText: 'Email',
               hintText: 'Please enter Your Email',
               controller: emailController,
+              obscureText: false,
+            ),
+            SizedBox(height: widget.screenHeight * 0.03),
+            const Text(
+              "Address",
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: widget.screenHeight * 0.01),
+            CustomTextField(
+              labelText: 'Address',
+              hintText: 'Please enter Your Address',
+              controller: addressController,
               obscureText: false,
             ),
             SizedBox(height: widget.screenHeight * 0.03),

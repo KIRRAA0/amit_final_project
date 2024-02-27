@@ -4,9 +4,10 @@ import 'package:iconsax/iconsax.dart';
 class PdfTile extends StatelessWidget {
   final String fileName;
   final VoidCallback onCancel;
-  final VoidCallback onEdit; // Callback for edit action
+  final VoidCallback onEdit;
 
   const PdfTile({
+    super.key,
     required this.fileName,
     required this.onCancel,
     required this.onEdit,
@@ -27,7 +28,10 @@ class PdfTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            const Icon(Icons.picture_as_pdf,color: Colors.red,),
+            const Icon(
+              Icons.picture_as_pdf,
+              color: Colors.red,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Column(
@@ -43,11 +47,17 @@ class PdfTile extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Iconsax.edit_2,color: Colors.blue,),
+              icon: const Icon(
+                Iconsax.edit_2,
+                color: Colors.blue,
+              ),
               onPressed: onEdit,
             ),
             IconButton(
-              icon: const Icon(Icons.cancel_outlined,color: Colors.red,),
+              icon: const Icon(
+                Icons.cancel_outlined,
+                color: Colors.red,
+              ),
               onPressed: onCancel,
             ),
           ],

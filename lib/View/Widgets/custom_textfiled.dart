@@ -7,6 +7,7 @@ class CustomTextField extends StatefulWidget {
   final IconData? icon;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final void Function(String)? onChangedCallback;
 
   const CustomTextField({
     super.key,
@@ -16,17 +17,20 @@ class CustomTextField extends StatefulWidget {
     this.icon,
     this.obscureText = false,
     this.validator,
+    this.onChangedCallback,
   });
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
 }
+
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChangedCallback,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -68,4 +72,3 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
-

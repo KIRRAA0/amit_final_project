@@ -12,6 +12,7 @@ class FavoriteJobsController extends GetxController {
   void onInit() {
     super.onInit();
     fetchFavoriteJobs();
+    update();
   }
 
   Future<void> fetchFavoriteJobs() async {
@@ -22,11 +23,13 @@ class FavoriteJobsController extends GetxController {
         favoriteJobs.assignAll(jobs);
         favoriteJobs.refresh();
         hasLoadedData.value = true;
+        update();
       }
     } catch (e) {
       print('Error fetching favorite jobs: $e');
     } finally {
       isLoading.value = false;
+      update();
     }
   }
 

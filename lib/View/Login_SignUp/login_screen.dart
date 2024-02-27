@@ -140,7 +140,6 @@ class LoginPage extends GetView<LoginController> {
                                 email: controller.emailController.text,
                                 password: controller.passwordController.text,
                               );
-                              // Set the isLoggedIn flag to true
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               await prefs.setBool('isLoggedIn', true);

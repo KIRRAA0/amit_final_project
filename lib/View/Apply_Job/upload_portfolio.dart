@@ -11,7 +11,6 @@ class UploadPortfolioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    // Read the file names from GetStorage
     final uploadedFileName1 = GetStorage().read('uploaded_file_name1') ?? '';
     final uploadedFileName2 = GetStorage().read('uploaded_file_name2') ?? '';
 
@@ -31,17 +30,20 @@ class UploadPortfolioPage extends StatelessWidget {
                   fontSize: 14.5, color: Colors.black.withOpacity(0.5)),
             ),
             SizedBox(height: screenHeight * 0.045),
-            InterTextStyle.getTextWidget(text: 'Upload CV',),
+            InterTextStyle.getTextWidget(
+              text: 'Upload CV',
+            ),
             FileUploadContainer(
               initialFileName: uploadedFileName1,
               storageKey: 'uploaded_file_name1',
             ),
-            InterTextStyle.getTextWidget(text: 'Other File',),
+            InterTextStyle.getTextWidget(
+              text: 'Other File',
+            ),
             FileUploadContainer(
               initialFileName: uploadedFileName2,
               storageKey: 'uploaded_file_name2',
             ),
-            Text(GetStorage().read('uploaded_file_name1_name') ?? 'null')
           ],
         ),
       ),

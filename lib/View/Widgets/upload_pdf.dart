@@ -15,7 +15,7 @@ class FileUploadContainer extends StatelessWidget {
   final String? initialFilePath;
 
   FileUploadContainer({
-    Key? key,
+    super.key,
     this.storageKey,
     this.initialFileName,
     this.initialFilePath,
@@ -26,7 +26,6 @@ class FileUploadContainer extends StatelessWidget {
     if (initialFilePath != null && filePath.value.isEmpty) {
       filePath.value = initialFilePath!;
     }
-    // Initialize file name and path from local storage
     _retrieveStoredFileData();
   }
 
@@ -36,60 +35,60 @@ class FileUploadContainer extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Obx(() => fileName.value.isEmpty
           ? DottedBorder(
-        dashPattern: const [8, 6],
-        color: Colors.blue,
-        borderType: BorderType.RRect,
-        strokeWidth: 2,
-        radius: const Radius.circular(12),
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.25,
-          color: Colors.blue.withOpacity(0.15),
-          width: double.infinity,
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Iconsax.document_upload5,
-                size: 40,
-                color: Colors.blue,
-              ),
-              const SizedBox(height: 10),
-              const Text("Upload File", style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.blue.withOpacity(0.16),
-                      side: const BorderSide(color: Colors.blueAccent),
+              dashPattern: const [8, 6],
+              color: Colors.blue,
+              borderType: BorderType.RRect,
+              strokeWidth: 2,
+              radius: const Radius.circular(12),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                color: Colors.blue.withOpacity(0.15),
+                width: double.infinity,
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Iconsax.document_upload5,
+                      size: 40,
+                      color: Colors.blue,
                     ),
-                    onPressed: () => pickAndUploadPDF(context),
-                    icon:
-                    const Icon(Iconsax.arrow_up, color: Colors.blue),
-                    label: const Text(
-                      "Choose File",
-                      style: TextStyle(color: Colors.blue),
+                    const SizedBox(height: 10),
+                    const Text("Upload File", style: TextStyle(fontSize: 20)),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.blue.withOpacity(0.16),
+                            side: const BorderSide(color: Colors.blueAccent),
+                          ),
+                          onPressed: () => pickAndUploadPDF(context),
+                          icon:
+                              const Icon(Iconsax.arrow_up, color: Colors.blue),
+                          label: const Text(
+                            "Choose File",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      )
+            )
           : PdfTile(
-        fileName: fileName.value,
-        onCancel: () {
-          fileName.value = '';
-          filePath.value = '';
-          saveFile('', '');
-        },
-        onEdit: () => pickAndUploadPDF(context),
-      )),
+              fileName: fileName.value,
+              onCancel: () {
+                fileName.value = '';
+                filePath.value = '';
+                saveFile('', '');
+              },
+              onEdit: () => pickAndUploadPDF(context),
+            )),
     );
   }
 

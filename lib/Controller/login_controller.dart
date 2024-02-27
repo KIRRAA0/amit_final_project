@@ -31,8 +31,6 @@ class LoginController extends GetxController {
      }
 
   bool _isButtonEnabled() {
-
-
     return emailController.text.isNotEmpty &&
         passwordController.text.isNotEmpty;
   }

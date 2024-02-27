@@ -42,8 +42,10 @@ class FavoriteJobsScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text('Explore Jobs'),
+              onPressed: () async {
+                await _controller.fetchFavoriteJobs();
+              },
+              child: const Text('Refresh'),
             ),
           ],
         ),

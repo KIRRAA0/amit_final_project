@@ -25,14 +25,13 @@ Future<void> applyToJob(JobModel job) async {
       "user_id": "1",
     });
 
-    // Make the API request
     var dio = Dio();
     dio.options.followRedirects = true;
     dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers["Authorization"] = "Bearer $token";
     var response = await dio.post(
       ApiEndpoints.baseUrl + ApiEndpoints.applyEndpoint,
-      data: formData, // Use FormData
+      data: formData,
     );
     if (response.statusCode == 200) {
       print('Applied to job successfully');

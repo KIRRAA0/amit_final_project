@@ -1,4 +1,5 @@
 import 'package:amit_final_project/View/Profile/edit_profile_screen.dart';
+import 'package:amit_final_project/View/Profile/portfolio_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -48,16 +49,19 @@ class ProfilePage extends StatelessWidget {
                                 opacity: 0.5),
                             const InfoRow(),
                             const AboutColumn(),
-                            Container(
-                              width: double.infinity,
-                              color: Colors.black.withOpacity(0.1),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5.0, horizontal: 12),
-                                child: Text(
-                                  'General',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.5)),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Container(
+                                width: double.infinity,
+                                color: Colors.black.withOpacity(0.1),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5.0, horizontal: 12),
+                                  child: Text(
+                                    'General',
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5)),
+                                  ),
                                 ),
                               ),
                             ),
@@ -83,33 +87,34 @@ class ProfilePage extends StatelessWidget {
                                           duration: const Duration(
                                               milliseconds: 500));
                                     };
-                                    break;
                                   case 1:
                                     iconData = Iconsax.folder;
                                     text = 'Portfolio';
-                                    onTap = () {};
-                                    break;
+                                    onTap = () {
+                                      Get.to(() => PortfolioPage(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));
+                                    };
                                   case 2:
                                     iconData = Iconsax.global;
                                     text = 'Language';
                                     onTap = () {
                                       // Functionality for the Notifications tile
                                     };
-                                    break;
                                   case 3:
                                     iconData = Iconsax.notification;
                                     text = 'Notifications';
                                     onTap = () {
                                       // Functionality for the Favorites tile
                                     };
-                                    break;
                                   case 4:
                                     iconData = Iconsax.lock;
                                     text = 'Login and Security';
                                     onTap = () {
                                       // Functionality for the Help tile
                                     };
-                                    break;
                                   default:
                                     iconData = Icons.error;
                                     text = 'Error';
