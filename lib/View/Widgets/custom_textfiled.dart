@@ -42,14 +42,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.hintText,
         prefixIcon: widget.icon != null ? Icon(widget.icon) : null,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13.0),
+          borderRadius: BorderRadius.circular(50.0),
           borderSide: const BorderSide(
             color: Colors.grey,
             width: 2.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(50.0),
           borderSide: const BorderSide(
             color: Color(0xFF3366FF),
             width: 2.0, // Adjust the width as needed

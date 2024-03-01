@@ -1,4 +1,7 @@
 import 'package:amit_final_project/View/Profile/edit_profile_screen.dart';
+import 'package:amit_final_project/View/Profile/help_center_screen.dart';
+import 'package:amit_final_project/View/Profile/login_and_security.dart';
+import 'package:amit_final_project/View/Profile/notifications_screen.dart';
 import 'package:amit_final_project/View/Profile/portfolio_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +14,7 @@ import '../Widgets/profile_widgets/about.dart';
 import '../Widgets/profile_widgets/information_row.dart';
 import '../Widgets/profile_widgets/profile_genral_tile.dart';
 import '../Widgets/sliver_appbar.dart';
+import 'languages_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key});
@@ -27,7 +31,7 @@ class ProfilePage extends StatelessWidget {
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
-              String userName = snapshot.data ?? ''; // Retrieve the user name
+              String userName = snapshot.data ?? '';
               return Material(
                 child: CustomScrollView(
                   slivers: [
@@ -101,19 +105,29 @@ class ProfilePage extends StatelessWidget {
                                     iconData = Iconsax.global;
                                     text = 'Language';
                                     onTap = () {
-                                      // Functionality for the Notifications tile
-                                    };
+                                      Get.to(() => CountriesListScreen(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));                                    };
                                   case 3:
                                     iconData = Iconsax.notification;
                                     text = 'Notifications';
                                     onTap = () {
-                                      // Functionality for the Favorites tile
-                                    };
+                                      Get.to(() => const NotificationsPage(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));                                           };
                                   case 4:
                                     iconData = Iconsax.lock;
                                     text = 'Login and Security';
                                     onTap = () {
-                                      // Functionality for the Help tile
+                                      Get.to(() => const SecurityPage(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));
                                     };
                                   default:
                                     iconData = Icons.error;
@@ -154,7 +168,6 @@ class ProfilePage extends StatelessWidget {
                                 IconData iconData;
                                 String text;
                                 VoidCallback onTap;
-                                bool showIcon;
                                 switch (index) {
                                   case 0:
                                     iconData = Iconsax.profile_circle;
@@ -164,7 +177,13 @@ class ProfilePage extends StatelessWidget {
                                   case 1:
                                     iconData = Iconsax.folder;
                                     text = 'Help Center';
-                                    onTap = () {};
+                                    onTap = () {
+                                      Get.to(() => HelpCenter(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));
+                                    };
                                     break;
                                   case 2:
                                     iconData = Iconsax.global;
