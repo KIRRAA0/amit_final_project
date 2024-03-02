@@ -9,4 +9,6 @@ class ApiEndpoints {
   static const String applyEndpoint = '/apply';
   static const String favoritesEndpoint = '/favorites';
   static const String portfolioEndpoint = '/user/profile/portofolios';
+  static const String editProfileEndpoint = '/user/profile/edit';
+  static const String updatePasswordEndpoint = '/auth/user/update';
 }

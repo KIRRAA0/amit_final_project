@@ -3,6 +3,8 @@ import 'package:amit_final_project/View/Profile/help_center_screen.dart';
 import 'package:amit_final_project/View/Profile/login_and_security.dart';
 import 'package:amit_final_project/View/Profile/notifications_screen.dart';
 import 'package:amit_final_project/View/Profile/portfolio_screen.dart';
+import 'package:amit_final_project/View/Profile/privacy_policy.dart';
+import 'package:amit_final_project/View/Profile/terms_conditions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -188,14 +190,23 @@ class ProfilePage extends StatelessWidget {
                                   case 2:
                                     iconData = Iconsax.global;
                                     text = 'Terms & Conditions';
-                                    onTap = () {};
+                                    onTap = () {
+                                      Get.to(() => TermsConditions(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));
+                                    };
                                     break;
                                   case 3:
                                     iconData = Iconsax.notification;
                                     text = 'Privacy Policy';
                                     onTap = () {
-                                      // Functionality for the Favorites tile
-                                    };
+                                      Get.to(() => PrivacyPolicy(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));                                    };
                                     break;
                                   default:
                                     iconData = Icons.error;

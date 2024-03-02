@@ -3,13 +3,10 @@ import 'package:amit_final_project/View/Widgets/profile_widgets/expantion_tiles_
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../Widgets/profile_widgets/custom_expantion_tile.dart';
-
 class HelpCenter extends StatelessWidget {
-  final TextEditingController controller =
-      TextEditingController(); // Create a controller
+  final TextEditingController controller = TextEditingController();
 
-  HelpCenter({Key? key}) : super(key: key);
+  HelpCenter({super.key});
 
   @override
   Widget build(BuildContext context) {
