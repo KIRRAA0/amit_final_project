@@ -16,6 +16,7 @@ import '../Widgets/profile_widgets/about.dart';
 import '../Widgets/profile_widgets/information_row.dart';
 import '../Widgets/profile_widgets/profile_genral_tile.dart';
 import '../Widgets/sliver_appbar.dart';
+import 'complete_profile.dart';
 import 'languages_screen.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -74,7 +75,7 @@ class ProfilePage extends StatelessWidget {
                             ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 5,
+                              itemCount: 6,
                               separatorBuilder:
                                   (BuildContext context, int index) =>
                                       const Divider(),
@@ -131,6 +132,15 @@ class ProfilePage extends StatelessWidget {
                                           duration: const Duration(
                                               milliseconds: 500));
                                     };
+                                    case 5:
+                                    iconData = Iconsax.profile_add5;
+                                    text = 'Complete Profile';
+                                    onTap = () {
+                                      Get.to(() => CompleteProfile(),
+                                          transition:
+                                          Transition.rightToLeftWithFade,
+                                          duration: const Duration(
+                                              milliseconds: 500));                                    };
                                   default:
                                     iconData = Icons.error;
                                     text = 'Error';

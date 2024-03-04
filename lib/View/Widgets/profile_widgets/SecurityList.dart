@@ -1,3 +1,4 @@
+import 'package:amit_final_project/View/Profile/two_step_verfication.dart';
 import 'package:amit_final_project/View/Widgets/inter_text_style.dart';
 import 'package:amit_final_project/View/Widgets/profile_widgets/security_tile.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,11 @@ class SecurityList extends StatelessWidget {
         SecurityTile(
           leadingText: 'Two Step verification',
           trailingText: 'Not Active',
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => const TwoStepVerification(),
+                transition: Transition.rightToLeftWithFade,
+                duration: const Duration(milliseconds: 500));
+          },
         ),
         SecurityTile(
           leadingText: 'Face ID',
