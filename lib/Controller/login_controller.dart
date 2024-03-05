@@ -15,6 +15,7 @@ class LoginController extends GetxController {
 
   String token = '';
   String username = '';
+  int id = 0;
 
 
   @override
@@ -57,7 +58,8 @@ class LoginController extends GetxController {
         if (userData.token != null) {
           token = userData.token!;
           username = userData.data.name;
-          _saveDataToSharedPreferences(token, username);
+          id = userData.data.id;
+          _saveDataToSharedPreferences(token, username,id);
         } else {
           throw Exception("Token is null in the response");
         }
@@ -73,10 +75,11 @@ class LoginController extends GetxController {
   }
 
 
-  Future<void> _saveDataToSharedPreferences(String token, String username) async {
+  Future<void> _saveDataToSharedPreferences(String token, String username,int id) async {
     final SharedPreferences prefs = await _prefs;
     prefs.setString('user_token', token);
     prefs.setString('user_name', username);
+    prefs.setInt('user_id', id);
   }
   @override
   void onClose() {

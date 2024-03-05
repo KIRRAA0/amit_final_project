@@ -9,7 +9,6 @@ import '../Widgets/custom_divider.dart';
 import '../Widgets/custom_outlined_button.dart';
 import '../Widgets/custom_textfiled.dart';
 import 'intersts_screen.dart';
-import 'login_screen.dart'; // Import the InterestsPage
 
 class CreateAccountPage extends GetView<RegistrationController> {
   const CreateAccountPage({super.key});

@@ -1,7 +1,6 @@
 import 'package:amit_final_project/API/endpoints.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Model/jobs_model.dart';
@@ -26,7 +25,6 @@ class ApiData {
       dio.options.headers["Authorization"] = "Bearer $authToken";
       final response = await dio
           .get('${ApiEndpoints.baseUrl}${ApiEndpoints.profileEndpoint}');
-      print(response.data);
       UserData userData = UserData.fromJson(response.data);
 
       saveUserDataToPrefs(userData);

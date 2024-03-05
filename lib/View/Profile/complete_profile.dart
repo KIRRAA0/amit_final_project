@@ -1,3 +1,4 @@
+import 'package:amit_final_project/View/Profile/portfolio_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -5,6 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../Widgets/profile_widgets/personal_details_tile.dart';
 import '../Widgets/profile_widgets/vertical_divider.dart';
 import 'edit_profile_screen.dart';
+import 'education_page.dart';
 
 class CompleteProfile extends StatefulWidget {
   CompleteProfile({Key? key}) : super(key: key);
@@ -16,49 +18,75 @@ class CompleteProfile extends StatefulWidget {
 class _CompleteProfileState extends State<CompleteProfile> {
   late double completionProgress;
   late List<Map<String, dynamic>> details;
+  late List<bool> isClickedList;
 
   @override
   void initState() {
     super.initState();
     completionProgress = 0.0;
+    isClickedList = List.generate(4, (_) => false); // Initialize list to false
     details = [
       {
         'title': 'Personal Details',
         'subtitle': 'Full name, email, phone number, and your address',
         'onTap': () {
-          setState(() {
-            completionProgress += 0.25;
-          });
-          Get.to(() => const EditProfilePage(),
-              transition: Transition.rightToLeftWithFade,
-              duration: const Duration(milliseconds: 500));
+          if (!isClickedList[0]) {
+            setState(() {
+              completionProgress += 0.25;
+              isClickedList[0] = true;
+            });
+            Get.to(() => const EditProfilePage(),
+                transition: Transition.rightToLeftWithFade,
+                duration: const Duration(milliseconds: 500));
+          }
         },
       },
       {
         'title': 'Education',
-        'subtitle': 'Enter your educational history to be considered by the recruiter',
+        'subtitle':
+        'Enter your educational history to be considered by the recruiter',
         'onTap': () {
-          setState(() {
-            completionProgress += 0.25;
-          });
+          if (!isClickedList[1]) {
+            setState(() {
+              completionProgress += 0.25;
+              isClickedList[1] = true;
+            });
+            Get.to(() => const EducationPage(),
+                transition: Transition.rightToLeftWithFade,
+                duration: const Duration(milliseconds: 500));
+          }
         },
       },
       {
         'title': 'Experience',
-        'subtitle': 'Enter your work experience to be considered by the recruiter',
+        'subtitle':
+        'Enter your work experience to be considered by the recruiter',
         'onTap': () {
-          setState(() {
-            completionProgress += 0.25;
-          });
+          if (!isClickedList[2]) {
+            setState(() {
+              completionProgress += 0.25;
+              isClickedList[2] = true;
+            });
+            Get.to(() => const EducationPage(),
+                transition: Transition.rightToLeftWithFade,
+                duration: const Duration(milliseconds: 500));
+          }
         },
       },
       {
         'title': 'Portfolio',
-        'subtitle': 'Create your portfolio. Applying for various types of jobs is easier.',
+        'subtitle':
+        'Create your portfolio. Applying for various types of jobs is easier.',
         'onTap': () {
-          setState(() {
-            completionProgress += 0.25;
-          });
+          if (!isClickedList[3]) {
+            setState(() {
+              completionProgress += 0.25;
+              isClickedList[3] = true;
+            });
+            Get.to(() => PortfolioPage(),
+                transition: Transition.rightToLeftWithFade,
+                duration: const Duration(milliseconds: 500));
+          }
         },
       },
     ];
@@ -83,23 +111,22 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   lineWidth: 13.0,
                   animation: true,
                   percent: completionProgress,
-                  footer: Text('${(completionProgress * 100).toInt()}% Completed'),
-                  center: const Text(
-                    "",
-                    style: TextStyle(fontSize: 20),
+                  center: Text(
+                    '${(completionProgress * 100).toInt()}%',
+                    style: const TextStyle(fontSize: 20),
                   ),
                   progressColor: Colors.blue,
                 ),
               ),
               const SizedBox(height: 12),
-              ...details.map((detail) => Column(
+              ...details.asMap().entries.map((entry) => Column(
                 children: [
                   PersonalDetailsWidget(
-                    title: detail['title']!,
-                    subtitle: detail['subtitle']!,
-                    onTap: detail['onTap'],
+                    title: entry.value['title']!,
+                    subtitle: entry.value['subtitle']!,
+                    onTap: entry.value['onTap'],
                   ),
-                  if (details.last != detail) ...[
+                  if (entry.key != details.length - 1) ...[
                     VerticalDividerr(),
                   ]
                 ],

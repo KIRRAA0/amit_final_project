@@ -17,6 +17,7 @@ class RegistrationController extends GetxController {
   String token = '';
   String username = '';
   String Email = '';
+  int id = 0;
 
   @override
   void onInit() {
@@ -65,8 +66,9 @@ class RegistrationController extends GetxController {
       token = userData.token!;
       username = userData.data.name;
       Email =userData.data.email;
+      id =userData.data.id;
 
-      _saveDataToSharedPreferences(token,username,Email);
+      _saveDataToSharedPreferences(token,username,Email,id);
 
       return userData;
     } catch (e) {
@@ -75,11 +77,12 @@ class RegistrationController extends GetxController {
     }
   }
 
-  Future<void> _saveDataToSharedPreferences(String token, String username, String email) async {
+  Future<void> _saveDataToSharedPreferences(String token, String username, String email,int id) async {
     final SharedPreferences prefs = await _prefs;
     prefs.setString('user_token', token);
     prefs.setString('user_name', username);
     prefs.setString('user_email', email);
+    prefs.setInt('user_id', id);
   }
 
   @override
