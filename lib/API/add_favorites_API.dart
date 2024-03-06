@@ -22,7 +22,6 @@ Future<void> addToFavourites(int id) async {
       data: data,
     );
     if (response.statusCode == 200) {
-      print('Added to favorites');
       print(response.data);
     } else {
       // Handle other status codes
