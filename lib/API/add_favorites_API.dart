@@ -24,11 +24,9 @@ Future<void> addToFavourites(int id) async {
     if (response.statusCode == 200) {
       print(response.data);
     } else {
-      // Handle other status codes
       print('Failed to add to favs');
     }
   } catch (error) {
-    // Handle errors
     print('Error adding to favs: $error');
   }
 }
