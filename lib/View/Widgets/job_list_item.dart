@@ -71,7 +71,14 @@ class JobListItem extends StatelessWidget {
                   onPressed: () {
                     addToFavourites(job.id);
                     print(job.id);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Added to favourites"),
+                      ),
+                    );
                   },
+
                 ),
               ],
             ),
