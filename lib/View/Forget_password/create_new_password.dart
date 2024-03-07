@@ -1,11 +1,11 @@
-import 'package:amit_final_project/View/Forget_password/check_email.dart';
 import 'package:amit_final_project/View/Forget_password/password_changed.dart';
 import 'package:amit_final_project/View/Login_SignUp/login_screen.dart';
 import 'package:amit_final_project/View/Widgets/custom_button.dart';
-import 'package:flutter/material.dart';
 import 'package:amit_final_project/View/Widgets/custom_textfiled.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../API/update_password_API.dart';
 import '../Widgets/custom_appbar.dart';
 
 class CreateNewPassword extends StatelessWidget {
@@ -102,6 +102,8 @@ class CreateNewPassword extends StatelessWidget {
             CustomButton(
               onPressed: () {
                 if (_arePasswordsValid()) {
+                  final newPassword = newPasswordController.text;
+                  updatePassword(newPassword);
                   Get.to(() => PasswordChanged());
                 } else {
                   debugPrint('Invalid passwords');
